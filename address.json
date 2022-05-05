@@ -1,0 +1,32 @@
+[
+  {
+  "address": {
+    "firstname": "Mark",
+    "lastname": "Winterburn",
+    "company": "Paper Street Soap Co.",
+    "address1": "775 Old Georgetown Road",
+    "address2": "3rd Floor",
+    "city": "Qethesda",
+    "phone": "3488545445002",
+    "zipcode": "90210",
+    "state_name": "CA",
+    "country_iso": "US",
+    "label": "Work"
+  }
+},
+{
+  "address": {
+    "firstname": "Stephen",
+    "lastname": "Smith",
+    "company": "Woodbank School",
+    "address1": "234 Old Georgetown Road",
+    "address2": "1st Floor",
+    "city": "Aethesda",
+    "phone": "34885493845002",
+    "zipcode": "90211",
+    "state_name": "CA",
+    "country_iso": "US",
+    "label": "Office"
+  }
+}
+]

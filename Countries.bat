@@ -1,0 +1,1 @@
+newman run Countries.postman_collection.json -e Spreecom.postman_environment.json -r htmlextra

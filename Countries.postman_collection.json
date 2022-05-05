@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "e90902b4-414d-4543-9a89-afe690150bc7",
+		"name": "Countries",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Deafult Countries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/*pm.test(\"Body should have default country as USA\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"USA\");\r",
+							"});*/\r",
+							"pm.test(\"iso 3 = USA\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.attributes.iso3).to.eql(\"USA\");\r",
+							"});\r",
+							"pm.test(\"id = 483\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.relationships.states.data[0].id).to.eql(\"483\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Prod_URL}}/api/v2/storefront/countries/default",
+					"host": [
+						"{{Prod_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"countries",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve a country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"/*pm.test(\"Country name is India\", function () {\r",
+							"    pm.expect(jsonData.data.id).to.include(\"99\");\r",
+							"});*/\r",
+							"\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData.data.type).to.be.a(\"string\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/countries/ind\\",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"countries",
+						"ind",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,409 @@
+{
+	"info": {
+		"_postman_id": "25453b77-c68c-44de-9cde-78e154f94ebe",
+		"name": "Address_Token@collection level",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Capture the ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.globals.set(\"address_id\", jsonData.data.id);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"Aaquib\",\r\n    \"lastname\": \"Shaikh\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\",\r\n    \"label\": \"Work\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create address negative_403",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"Aaquib\",\r\n    \"lastname\": \"Shaikh\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\",\r\n    \"label\": \"Work\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create address negative_blank 1st name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});\r",
+							"pm.test(\"1st name cannot be blank\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errors.firstname[0]).to.eql(\"can't be blank\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"\",\r\n    \"lastname\": \"Shaikh\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\",\r\n    \"label\": \"Work\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create address negative_422 lable already exists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});\r",
+							"pm.test(\"Error messages\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Address name has already been taken\");\r",
+							"    pm.expect(jsonData.errors.label[0]).to.eql(\"has already been taken\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"john\",\r\n    \"lastname\": \"snow\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\",\r\n    \"label\": \"Work\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all addresses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update an address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"label\":\"My Home\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses/{{address_id}}",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses",
+						"{{address_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove an address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses/{{address_id}}",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses",
+						"{{address_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove an address_404",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses/23070",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses",
+						"23070"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{collection_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test('Access Toekn',function(){",
+					"pm.sendRequest({",
+					"    url: 'https://demo.spreecommerce.org/spree_oauth/token',",
+					"    method: 'POST',",
+					"    header: { ",
+					"        \"Content-Type\" : \"application/json\"",
+					"            },",
+					"   body:{",
+					"      mode:'raw',",
+					"      raw: JSON.stringify({",
+					"           \"grant_type\": \"password\",",
+					"    \"username\": \"Aaquib@spree.com\",",
+					"    \"password\": \"Aaquib123\"",
+					"    })",
+					"   }",
+					"},",
+					"    function(err,response) {",
+					"        console.log(response);",
+					"        let responsejson = response.json();",
+					"        pm.globals.set('collection_token',responsejson.access_token);",
+					"    }",
+					")",
+					"    });"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

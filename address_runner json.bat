@@ -1,0 +1,1 @@
+newman run Address_collection.json -r htmlextra

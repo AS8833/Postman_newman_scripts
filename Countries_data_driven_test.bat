@@ -1,0 +1,1 @@
+newman run Countries_data_driven_test.postman_collection.json -d "C:\Postman API Testing\Country_names.csv" -r htmlextra

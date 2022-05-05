@@ -1,0 +1,1 @@
+newman run https://www.getpostman.com/collections/99983fe79d62335dbe27 -r htmlextra

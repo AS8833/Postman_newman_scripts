@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "05a45340-0f89-42cd-9fe1-312ecaf532e2",
+		"name": "Countries data driven test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Retrieve a country with csv file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\" , function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Check iso_name = \" +pm.iterationData.get(\"iso_name\"), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.data.attributes.iso_name).to.eql(pm.iterationData.get(\"iso_name\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var cname1 = pm.iterationData.get(\"countryname\")\r",
+							"pm.globals.set(\"cname\", cname1);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/countries/{{cname}}",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"countries",
+						"{{cname}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "countryname",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
